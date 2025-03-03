@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Hello</title>
+        <link rel="stylesheet" href="demo.css">
+    </head>
+
+    <body>
+
+        <p th:text="'The time is ' + ${theTime}" class="funny"></p>
+
+        <p>The time is <span th:text="${theTime}"></span></p>
+
+    </body>
+</html>
