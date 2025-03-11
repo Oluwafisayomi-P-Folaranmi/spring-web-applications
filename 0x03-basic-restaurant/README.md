@@ -8,4 +8,4 @@ Table of content:
    + The admin interactions
 2. Spring JPA: 00:16:40
    + 
-3. Front-end/React
+3. React
