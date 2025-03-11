@@ -27,13 +27,14 @@ This section of the **Spring Framework website** describes the **capabilities of
 
 Main Capabilities Listed:
 
++ **Web Applications** – Create REST APIs, MVC-based applications
++ **Batch** – Process large datasets efficiently
++ **Event-Driven** – Build event-driven architectures
 + **Microservices** – Build scalable, independent services
 + **Reactive** – Support for non-blocking, high-performance applications
-+ **Event-Driven** – Build event-driven architectures
 + **Cloud** – Develop applications that integrate with cloud providers
-+ **Web Applications** – Create REST APIs, MVC-based applications
 + **Serverless** – Run applications on platforms like AWS Lambda
-+ **Batch** – Process large datasets efficiently
+
 
 Instead of focusing on individual Spring Projects, this section shows how different **projects work together to achieve various goals**.
 
