@@ -31,7 +31,7 @@ public class CloudinaryConfig {
 
 The `@Bean` annotation tells Spring to **instantiate and manage** a `Cloudinary` object. When Spring initializes the application, it creates and stores a single instance (Singleton Scope by default) of the `Cloudinary` bean. This instance is stored in the **Spring Application Context**.
 
-When the application starts, **Spring Boot scans** for `@Configuration` classes. It **processes the `@Bean` method inside `CloudinaryConfig`, creating a `Cloudinary` instance. The `Cloudinary` instance is **stored in the Spring Application Context**. Any class needing `Cloudinary` (like a service class, for example `CloudinaryService`) gets it **automatically injected**.
+When the application starts, **Spring Boot scans** for `@Configuration` classes. It processes the `@Bean` method inside `CloudinaryConfig`, creating a `Cloudinary` instance. The `Cloudinary` instance is **stored in the Spring Application Context**. Any class needing `Cloudinary` (like a service class, for example `CloudinaryService`) gets it **automatically injected**.
 
 This **eliminates manual object creation**, making the application modular and maintainable. 🚀
 
