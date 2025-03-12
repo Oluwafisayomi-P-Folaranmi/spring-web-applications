@@ -1,6 +1,8 @@
 ## **Cloudinary with Spring Boot**
 
-Spring Boot is a widely used framework for building robust and scalable backend applications. Integrating Cloudinary with Spring Boot offers the following advantages:
+Spring Boot is a widely used framework for building robust and scalable back-end applications.
+
+**Integrating Cloudinary in a web framework like Spring Boot is to have a fully functional Spring Boot REST API that interacts seamlessly with Cloudinary to manage images effectively**. Integrating Cloudinary with Spring Boot offers the following advantages:
 
 #### **1. Simplified Media Management**
 - Cloudinary eliminates the need for **managing on-premise file storage** or setting up complex AWS S3 configurations.
