@@ -48,7 +48,7 @@ CREATE TABLE `User` (
 
 ### **Entity Class**
 
-The table schema that we have generated can be mapped to an entity.
+The table schema that we have designed can be mapped to an entity.
 
 ```java
 public class User {
