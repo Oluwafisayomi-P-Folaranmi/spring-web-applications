@@ -1,10 +1,10 @@
 ## **Jackson JSON**
 
-### **`JsonProperty`**
+### **`@JsonProperty` Annotation**
 
 The `@JsonProperty` annotation comes from the Jackson library (`com.fasterxml.jackson.annotation.JsonProperty`). It customizes how the password field is serialized and deserialized in JSON operations.
 
-In the following table are other `JsonProperty.Access` Options:
+In the following table are some `JsonProperty.Access` Options:
 
 | Option | Description |
 |--------|-------------|
