@@ -29,10 +29,6 @@ The **`User`** table often has relationships with other tables:
   + **One-to-Many** with `Address`: A user can have multiple addresses (`address` table), and multiple addresses (`address` table) can belong to one user.
 
   + **Many-to-Many** with `Coupon`: Many users can use one coupon (`coupon` table) and a coupon can be used by many users.
-  
-   A user can have multiple orders (`orders` table) or posts (`posts` table).
-  + **Many-to-Many**: Users can belong to multiple groups (`user_groups` table).
-  + **One-to-One**: A user may have one profile (`user_profile` table).
 
 ### **SQL Schema**
 
