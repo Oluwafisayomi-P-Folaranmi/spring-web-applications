@@ -173,6 +173,3 @@ select * from users where id=123
 | **Time Zone Configuration** | Ensures consistent timestamp storage | `spring.jpa.properties.hibernate.jdbc.time_zone=UTC` |
 | **Logging Query Parameters** | Shows SQL queries with actual values | `logging.level.org.hibernate.orm.jdbc.bind=TRACE` |
 
----
-
-Would you like me to provide more practical examples or best practices for a specific use case? 🚀
