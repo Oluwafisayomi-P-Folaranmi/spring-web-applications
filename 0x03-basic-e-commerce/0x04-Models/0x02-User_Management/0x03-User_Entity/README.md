@@ -61,7 +61,7 @@ public class User {
 
     private String email;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private String mobile;
@@ -77,7 +77,7 @@ public class User {
 }
 ```
 
-We have annotated `password` with `JsonProperty.Access.READ_ONLY`. The password will be hid whenever we fetch this data from front-end, as we do not want to expose the password.
+We have annotated `password` with `JsonProperty.Access.WRITE_ONLY`. The password will be hid whenever we fetch this data from front-end, as we do not want to expose the password.
 
 We want to choose the `role` of the user from an enum of roles. The enum type of roles, `domain/USER_ROLE` may consist:
 
