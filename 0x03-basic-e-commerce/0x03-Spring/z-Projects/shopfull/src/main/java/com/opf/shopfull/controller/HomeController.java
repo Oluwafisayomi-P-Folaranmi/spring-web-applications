@@ -14,7 +14,7 @@ public class HomeController {
     @GetMapping
     public ResponseEntity<ApiResponse> HomeControllerHandler() {
         ApiResponse apiResponse = new ApiResponse();
-        apiResponse.setMessage("Welcome to shopfull");
+        apiResponse.setMessage("Welcome to shopfull.");
         apiResponse.setTime(LocalDateTime.now());
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
