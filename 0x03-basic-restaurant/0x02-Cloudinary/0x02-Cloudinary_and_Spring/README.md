@@ -1,2 +1,0 @@
-# Cloudinary and Spring
-
