@@ -1,36 +1,19 @@
-## **Coupon Entity**
+## **Coupon Entity**: `01:37:00`
 
-The `Coupon` table in an e-commerce database is designed to store discount vouchers or promotional codes that customers can use to receive discounts on their purchases.
-
-Coupons can have different conditions, such as **minimum order value**, **expiry dates**, and **applicable user categories** (e.g., new users, loyal customers).
+The `Coupon` table is designed to store discount vouchers or promotional codes that customers can use to receive discounts on their purchases.
 
 ### **Purpose of the `Coupon` Table**
 
 The `Coupon` table helps manage:
 - **Discounts & Promotions** – Apply percentage-based or fixed-value discounts.
 - **Usage Restrictions** – Limit coupons to certain users, products, or order amounts.
-- **Redemption Tracking** – Ensure a coupon is used only within its valid period and under specified conditions.
-- **Business Analytics** – Track coupon usage to measure the effectiveness of promotions.
 
 ### **Schema for `Coupon` Table**
 
 A **well-structured** `Coupon` table in a **relational database** (e.g., MySQL) might look like this:
 
 ```sql
-CREATE TABLE Coupon (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    code VARCHAR(50) UNIQUE NOT NULL,  -- Unique coupon code
-    description TEXT,                  -- Description of the coupon
-    discount_type ENUM('PERCENTAGE', 'FIXED') NOT NULL,  -- Type of discount
-    discount_value DECIMAL(10,2) NOT NULL, -- Discount amount or percentage
-    min_order_value DECIMAL(10,2),    -- Minimum order amount required
-    max_discount DECIMAL(10,2),       -- Maximum discount limit for percentage coupons
-    usage_limit INT DEFAULT 1,        -- Max times a user can use the coupon
-    total_usage INT DEFAULT 0,        -- How many times the coupon has been used
-    valid_from DATETIME NOT NULL,     -- Start date
-    valid_to DATETIME NOT NULL,       -- Expiry date
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE `coupon` (
 );
 ```
 
@@ -39,14 +22,7 @@ CREATE TABLE Coupon (
 Since multiple users can use the same coupon **(if applicable)**, and users may use multiple coupons over time, a **junction table** (`User_Coupon`) is needed:
 
 ```sql
-CREATE TABLE `Coupon` (
-    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
-    `code` VARCHAR(255) NOT NULL,
-    `discountPercentage` DOUBLE NOT NULL,
-    `validityStartDate` DATETIME NOT NULL,
-    `validityEndDate` DATETIME NOT NULL,
-    `minimumOrderValue` DOUBLE NOT NULL,
-    `active` BOOLEAN NOT NULL DEFAULT TRUE
+CREATE TABLE `coupon` (
 );
 ```
 

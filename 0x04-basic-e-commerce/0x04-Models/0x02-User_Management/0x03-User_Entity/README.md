@@ -1,4 +1,4 @@
-## **User**
+## **User**: `01:20:00`
 
 The **`User`** table is a fundamental part of many database models, ***especially in applications that involve authentication, authorization, or user-related data management***.
 
@@ -11,16 +11,13 @@ The **`User`** table stores **user-related information** in an application. It t
 | Column Name         | Data Type           | Description |
 |---------------------|--------------------|-------------|
 | `id`               | `BIGINT` / `UUID` (Primary Key) | Unique identifier for the user.|
-| `username`         | `VARCHAR(255)` / `TEXT` | Unique username for login/authentication.|
+| `fullName`         | `VARCHAR(255)` / `TEXT` | Unique username for login/authentication.|
 | `email`            | `VARCHAR(255)` | User's email (often unique).|
-| `password_hash`    | `TEXT` | Hashed password for authentication.|
+| `password`    | `TEXT` | Hashed password for authentication.|
 | `first_name`       | `VARCHAR(100)` | User's first name.|
 | `last_name`        | `VARCHAR(100)` | User's last name.|
-| `phone_number`     | `VARCHAR(20)` | Optional contact number.|
+| `mobile`     | `VARCHAR(20)` | Optional contact number.|
 | `role`             | `VARCHAR(50)` | Role of the user (e.g., ADMIN, USER).|
-| `status`           | `ENUM('ACTIVE', 'INACTIVE', 'BANNED')` | Account status.|
-| `created_at`       | `TIMESTAMP` | Date and time when the user was created.|
-| `updated_at`       | `TIMESTAMP` | Last modification timestamp.|
 
 ### **Relationships with Other Tables**
 
@@ -35,14 +32,7 @@ The **`User`** table often has relationships with other tables:
 A basic `User` table definition in **SQL**:
 
 ```sql
-CREATE TABLE `User` (
-    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
-    `full_name` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) UNIQUE NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `mobile` VARCHAR(20) UNIQUE,
-    `role` ENUM('ROLE_CUSTOMER', 'ROLE_ADMIN', 'ROLE_SELLER') NOT NULL DEFAULT 'ROLE_CUSTOMER'
-    ---
+CREATE TABLE `user` (
 );
 ```
 
@@ -64,6 +54,10 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    private String firstName;
+
+    private String lastName;
+
     private String mobile;
 
     private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
@@ -83,11 +77,8 @@ We want to choose the `role` of the user from an enum of roles. The enum type of
 
 ```java
 public enum USER_ROLE {
-
     ROLE_ADMIN,
-
     ROLE_SELLER,
-
     ROLE_CUSTOMER
 }
 ```
@@ -96,7 +87,7 @@ Using this `USER_ROLE` enum, we want to refuse input of any other type value com
 
 We have a set of addresses. We can use anyone of the addresses whenever we want to send purchased product to the customer.
 
-For the `usedCoupon`, when we realise that the user have used a particular, then we don't want the user to use it again.
+For the `usedCoupon`, when we realise that the user have used a particular coupon, then we don't want the user to use it again.
 
 We have created the relationships between the `User` class and the other classes: `Address`, `Coupon`, 
 
