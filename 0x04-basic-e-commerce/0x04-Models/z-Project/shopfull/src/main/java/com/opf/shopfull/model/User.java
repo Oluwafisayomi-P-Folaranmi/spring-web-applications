@@ -43,4 +43,7 @@ public class User {
     @ManyToMany
     @JsonIgnore
     private Set<Coupon> usedCoupons = new HashSet<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cart cart;
 }

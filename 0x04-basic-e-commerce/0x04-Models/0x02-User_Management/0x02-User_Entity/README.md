@@ -1,4 +1,4 @@
-## **User**: `01:20:00`
+## **User Entity**: `01:20:00`
 
 The **`User`** table is a fundamental part of many database models, ***especially in applications that involve authentication, authorization, or user-related data management***.
 
@@ -33,6 +33,14 @@ A basic `User` table definition in **SQL**:
 
 ```sql
 CREATE TABLE `user` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `full_name` VARCHAR(255),
+    `email` VARCHAR(255) UNIQUE NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `first_name` VARCHAR(255),
+    `last_name` VARCHAR(255),
+    `mobile` VARCHAR(20),
+    `role` ENUM('ROLE_CUSTOMER', 'ROLE_ADMIN', 'ROLE_VENDOR') DEFAULT 'ROLE_CUSTOMER'
 );
 ```
 
@@ -51,7 +59,7 @@ public class User {
 
     private String email;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String password;
 
     private String firstName;

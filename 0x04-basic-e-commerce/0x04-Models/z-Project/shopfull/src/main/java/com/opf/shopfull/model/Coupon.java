@@ -1,5 +1,6 @@
 package com.opf.shopfull.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,5 +34,6 @@ public class Coupon {
     private boolean active = true;
 
     @ManyToMany(mappedBy = "usedCoupons")
+    @JsonIgnore
     private Set<User> usedByUsers = new HashSet<>();
 }

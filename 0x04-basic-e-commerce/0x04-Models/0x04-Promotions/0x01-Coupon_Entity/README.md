@@ -1,54 +1,88 @@
 ## **Coupon Entity**: `01:37:00`
 
-The `Coupon` table is designed to store discount vouchers or promotional codes that customers can use to receive discounts on their purchases.
-
 ### **Purpose of the `Coupon` Table**
 
-The `Coupon` table helps manage:
-- **Discounts & Promotions** – Apply percentage-based or fixed-value discounts.
-- **Usage Restrictions** – Limit coupons to certain users, products, or order amounts.
+The `Coupon` table is a crucial part of an e-commerce or retail database system, designed to manage promotional discounts offered to customers. 
 
-### **Schema for `Coupon` Table**
+#### **Key Roles of the `Coupon` Table:**
 
-A **well-structured** `Coupon` table in a **relational database** (e.g., MySQL) might look like this:
+  + **Discount Management**: Offers percentage-based or fixed discounts to customers.
+  + **Promotion Tracking**: Stores details of marketing campaigns.
+  + **Customer Incentives**: Encourages purchases through discounts.
+
+### **Common Fields in a `Coupon` Table**
+
+A well-structured `Coupon` table contains fields that define its behavior, restrictions, and relationships with other tables.
+
+| Column Name            | Data Type            | Description |
+|------------------------|---------------------|-------------|
+| `id`                  | BIGINT (Primary Key, Auto-increment) | Unique identifier for each coupon. |
+| `code`                | VARCHAR(50) UNIQUE NOT NULL | The alphanumeric code customers enter at checkout. |
+| `discount_percentage`  | DOUBLE NOT NULL      | The percentage discount applied to the order. |
+| `validity_start_date`  | DATETIME NOT NULL    | The start date for coupon validity. |
+| `validity_end_date`    | DATETIME NOT NULL    | The expiration date for the coupon. |
+| `minimum_order_value`  | DOUBLE NOT NULL      | The minimum purchase amount required to apply the coupon. |
+| `active`              | BOOLEAN DEFAULT TRUE | Indicates if the coupon is currently active. |
+
+### **Relationships with Other Tables**
+
+The `Coupon` table interacts with multiple tables in a relational database:
+
+#### **Many-to-Many Relationship with `User`**
+
+  + Users can apply multiple coupons across different orders.
+  + The same coupon can be used by multiple users (if applicable).
+  + A **junction table** (`user_coupons`) is used to track coupon usage.
+
+### **SQL Schema**
+
+Here’s the SQL schema for the `coupon` table along with the many-to-many relationship with `user`:
 
 ```sql
 CREATE TABLE `coupon` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `code` VARCHAR(50) UNIQUE NOT NULL,
+    `discount_percentage` DOUBLE NOT NULL,
+    `validity_start_date` DATETIME NOT NULL,
+    `validity_end_date` DATETIME NOT NULL,
+    `minimum_order_value` DOUBLE NOT NULL,
+    `active` BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE `user_coupon` (
+    `user_id` BIGINT,
+    `coupon_id` BIGINT,
+    PRIMARY KEY (`user_id`, `coupon_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`coupon_id`) REFERENCES `coupon`(`id`) ON DELETE CASCADE
 );
 ```
-
-### **Relationship**
-
-Since multiple users can use the same coupon **(if applicable)**, and users may use multiple coupons over time, a **junction table** (`User_Coupon`) is needed:
-
-```sql
-CREATE TABLE `coupon` (
-);
-```
-
-This table:
-
-  + Tracks which users have used which coupons.
-  + Prevents users from reusing one-time-use coupons.
-  + Helps in reporting coupon usage.
 
 ### **Entity Class**
 
+The corresponding Java entity class for `coupon`:
+
 ```java
+@Entity
 public class Coupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String code;
 
+    @Column(nullable = false)
     private double discountPercentage;
 
+    @Column(nullable = false)
     private LocalDateTime validityStartDate;
 
+    @Column(nullable = false)
     private LocalDateTime validityEndDate;
 
+    @Column(nullable = false)
     private double minimumOrderValue;
 
     private boolean active = true;
@@ -58,37 +92,25 @@ public class Coupon {
 }
 ```
 
-The `discountPercentage` is used as the amount of discount the user will get after using the coupon. The validity dates are used to track the available and expiry dates of the coupon.
+### **Other Considerations**
 
-If the user is applying this coupon, what will be the minimum order value, i.e., the lowest amount a customer must spend to qualify for a discount, coupon, free shipping, or other promotional offers. This is what the field `minimumOrderValue` stores.
+Here are additional enhancements and best practices to improve the `Coupon` table:
 
-The admin can make the coupon `active` or deactivate it.
+#### **✅ Additional Fields to Consider**
 
-We have created the relationships between the `Coupon` class and the other class:
+  + **`max_usage_limit`** → Limits how many times a coupon can be used overall.
+  + **`user_limit`** → Defines how many times a single user can use the coupon.
+  + **`discount_type`** → Specifies whether the discount is a **percentage** or a **fixed amount**.
+  + **`applicable_products`** → Links coupons to specific product categories.
 
-  + **Many-to-Many** with `User`: We have annotated the `usedByUsers` field as `@ManyToMany(mappedBy = "usedCoupons")`, which map it to the `usedCoupons` field in `User` class. Here’s the corrected version with improved clarity:  
+#### **✅ Enhancements for Better Performance**
 
-Using the `@ManyToMany` annotation, Hibernate **automatically creates a junction table** in the database to manage the many-to-many relationship. Therefore, while you do not need to define an extra table manually, Hibernate **will generate** a separate junction table to store the relationship between the two entities. The actual name of the resulting table depends on ***JPA's default naming strategy*** or any explicit configurations you define.
+  + **Indexes on `code`, `validity_end_date`** for faster lookups.
+  + **Partitioning by `validity_end_date`** to improve performance in large databases.
+  + **Triggers to enforce usage limits** (as MySQL does not support `CHECK` constraints referencing another table).
 
-### **Possible Enhancements**
-
-  + **Category-Based Coupons** – Apply coupons to specific product categories.
-  + **Product-Specific Coupons** – Only allow discounts on certain products.
-  + **Referral Coupons** – Coupons granted through referral programs.
-  + **Stackable Discounts** – Allow multiple coupons on a single order (if supported).  
-
-### **Use Cases**
-
-| Scenario | SQL Query |
-|----------|----------|
-| Get all active coupons | `SELECT * FROM Coupon WHERE valid_from <= NOW() AND valid_to >= NOW();` |
-| Check if a user has used a coupon | `SELECT * FROM User_Coupon WHERE user_id = 5 AND coupon_id = 10;` |
-| Apply a coupon to an order | `UPDATE User_Coupon SET used_at = NOW() WHERE user_id = 5 AND coupon_id = 10;` |
-
-The `Coupon` table is crucial for **marketing and promotions** in an e-commerce system.
-
-It should be designed to **handle multiple use cases** while maintaining **efficiency and scalability**.
-
-**Business rules**, such as usage limits, expiry dates, and applicable users, should be **strictly enforced** at the database level.
-
-🚀
+### **Summary**
+- The `Coupon` table helps manage **discounts and promotions** in an e-commerce system.
+- It has key fields like `code`, `discount_percentage`, and `validity_end_date`.
+- **Many-to-Many** relationships are used to track coupon usage by users.
+- A well-designed schema ensures **efficiency**, **scalability**, and **business rule enforcement**.
