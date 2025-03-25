@@ -1,9 +1,8 @@
 package com.opf.shopfull.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.hibernate.annotations.NotFound;
 
 @Entity
 @Getter
@@ -21,11 +20,11 @@ public class Category {
     private String name;
 
     @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String categoryId;
 
     @ManyToOne
-    private String parentCategory;
+    private Category parentCategory;
 
     @NotNull
     private Integer level;
