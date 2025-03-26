@@ -7,9 +7,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "cart")
 @Getter
-@Builder
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +17,7 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @OneToOne
@@ -25,7 +25,7 @@ public class Cart {
     private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItem> cartItems = new HashSet<>();
+    private Set<CartItem> cartItems = new HashSet<>(); // Not resolved yet
 
     @Column(name = "total_selling_price", nullable = false)
     private double totalSellingPrice;

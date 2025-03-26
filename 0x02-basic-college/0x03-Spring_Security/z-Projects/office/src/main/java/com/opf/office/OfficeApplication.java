@@ -16,7 +16,7 @@ public class OfficeApplication {
 	}
 
 	@Bean
-	CommandLineRunner commandLineRunner(EmployeeService employeeService) {
+	CommandLineRunner commandLineRunner() {
 		return runner -> {
 			System.out.println("Welcoming the developer. The application is running.");
 

@@ -7,9 +7,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
+@Entity(name = "review")
 @Getter
-@Builder
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,15 +17,17 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "review_text", nullable = false)
     private String reviewText;
 
-    @Column(nullable = false)
+    @Column(name = "rating", nullable = false)
     private double rating;
 
     @ElementCollection
+    @Column(name = "product_images")
     private List<String> productImages;
 
     @ManyToOne
@@ -40,4 +41,5 @@ public class Review {
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
 }

@@ -17,6 +17,7 @@ public class ShopfullApplication {
 	CommandLineRunner commandLineRunner() {
 		return runner -> {
 			System.out.println("Welcoming the developer. The application is running.");
+
 		};
 	}
 

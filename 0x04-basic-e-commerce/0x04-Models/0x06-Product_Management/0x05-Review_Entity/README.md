@@ -41,7 +41,7 @@ CREATE TABLE review (
 
 ---
 
-### **5. Entity Class (Java – Spring Boot JPA)**  
+### **5. Entity Class (Java – Spring Boot JPA)**
 ```java
 @Entity
 public class Review {

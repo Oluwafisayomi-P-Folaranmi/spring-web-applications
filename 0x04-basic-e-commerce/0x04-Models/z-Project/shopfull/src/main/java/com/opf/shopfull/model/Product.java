@@ -5,11 +5,12 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Entity
+@Entity(name = "product")
 @Getter
-@Builder
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,36 +19,50 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
+    @OneToMany(mappedBy = "product")
+    private Set<CartItem> cartItems = new HashSet<>();
+
+    @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "mrp_price", nullable = false)
     private double mrpPrice;
 
+    @Column(name = "selling_price", nullable = false)
     private double sellingPrice;
 
+    @Column(name = "discount_percent")
     private int discountPercent;
 
+    @Column(name = "quantity", nullable = false)
     private int quantity;
 
+    @Column(name = "colour")
     private String colour;
 
-    @ElementCollection
-    private List<String> images = new ArrayList<>();
-
-    private int numRatings;
-
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
+    @JoinColumn(name = "seller_id")
     private Seller seller;
 
-    private LocalDateTime createdAt;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    private String sizes;
+    @ElementCollection
+    @Column(name = "sizes")
+    private List<String> sizes = new ArrayList<>();
+
+    @Column(name = "num_ratings")
+    private int numRatings;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();

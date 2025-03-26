@@ -8,7 +8,7 @@ The **Cart** table in a database model is commonly used in e-commerce applicatio
    - Each cart is usually linked to a specific user, either through a `user_id` in a relational database or a session ID for anonymous users.
    
 2. **Products in the Cart**  
-   - The cart holds multiple products, each represented as a row in the `cart_items` table if normalized.
+   - The cart holds multiple products, each represented as a row in the `cart_item` table if normalized.
 
 3. **Temporary vs Persistent Storage**  
    - Some carts are session-based and are cleared after checkout or after a certain inactivity period.

@@ -2,13 +2,8 @@ package com.opf.shopfull.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
-
-@Entity
-@Builder
+@Entity(name = "address")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,33 +11,37 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class Address {
 
+    @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "locality")
     private String locality;
 
+    @Column(name = "address")
     private String address;
 
+    @Column(name = "city")
     private String city;
 
+    @Column(name = "state")
     private String state;
 
+    @Column(name = "pin_code")
     private String pinCode;
 
-    private String country;
-
+    @Column(name = "mobile")
     private String mobile;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
 }

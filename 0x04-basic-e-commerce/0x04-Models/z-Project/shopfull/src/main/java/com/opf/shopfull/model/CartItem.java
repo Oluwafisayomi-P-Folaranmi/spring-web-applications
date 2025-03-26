@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+@Entity(name = "cart_item")
 @Getter
-@Builder
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,27 +14,30 @@ public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id", nullable = false)
     @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "size", length = 50)
+    @Column(name = "size", length = 50, columnDefinition = "TEXT")
     private String size;
 
-    @Column(name = "quantity", nullable = false, columnDefinition = "INT DEFAULT 1 CHECK (quantity > 0)")
+    @Column(name = "quantity")
     private int quantity = 1;
 
-    @Column(name = "mrp_price", columnDefinition = "INT CHECK (mrp_price >= 0)")
+    @Column(name = "mrp_price")
     private Integer mrpPrice;
 
-    @Column(name = "selling_price", columnDefinition = "INT CHECK (selling_price >= 0)")
+    @Column(name = "selling_price")
     private Integer sellingPrice;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id")
     private Long userId;
 }
