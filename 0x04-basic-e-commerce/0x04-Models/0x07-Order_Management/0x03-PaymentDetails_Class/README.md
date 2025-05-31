@@ -1,2 +1,0 @@
-## **`PaymentDetails` Class**
-

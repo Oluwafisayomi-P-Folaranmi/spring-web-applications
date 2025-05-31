@@ -1,2 +1,0 @@
-## **`OrderItem` Entity**
-
